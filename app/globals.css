@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Two-color scheme: Light Teal and White */
+    --background: 0 0% 100%;
+    --foreground: 170 64% 40%;
+
+    /* Light teal for primary */
+    --primary: 170 64% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    /* White for secondary */
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 170 64% 40%;
+
+    /* Subtle teal for accents */
+    --accent: 170 70% 95%;
+    --accent-foreground: 170 64% 40%;
+
+    /* Muted colors - light teal */
+    --muted: 170 70% 95%;
+    --muted-foreground: 170 40% 40%;
+
+    /* Card and popover backgrounds - pure white */
+    --card: 0 0% 100%;
+    --card-foreground: 170 64% 40%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 170 64% 40%;
+
+    /* Borders and inputs - light teal */
+    --border: 170 70% 90%;
+    --input: 170 70% 90%;
+
+    /* Focus ring - teal */
+    --ring: 170 64% 40%;
+
+    /* Destructive - elegant red */
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Sidebar colors */
+    --sidebar-background: 170 64% 40%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-border: 170 50% 50%;
+    --sidebar-ring: 170 64% 40%;
+    --sidebar-accent: 170 50% 45%;
+    --sidebar-accent-foreground: 0 0% 100%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 170 50% 10%;
+    --foreground: 0 0% 95%;
+
+    --primary: 170 64% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 170 64% 40%;
+
+    --accent: 170 70% 30%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 170 30% 15%;
+    --muted-foreground: 170 20% 70%;
+
+    --card: 170 50% 13%;
+    --card-foreground: 0 0% 95%;
+    --popover: 170 50% 13%;
+    --popover-foreground: 0 0% 95%;
+
+    --border: 170 30% 25%;
+    --input: 170 30% 25%;
+    --ring: 170 64% 40%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --sidebar-background: 170 50% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-border: 170 30% 25%;
+    --sidebar-ring: 170 64% 40%;
+    --sidebar-accent: 170 30% 20%;
+    --sidebar-accent-foreground: 0 0% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif tracking-tight;
+  }
+}
+
+/* Luxury styling */
+.luxury-card {
+  @apply bg-white border border-border/50 shadow-luxury rounded-lg transition-all duration-300 hover:shadow-luxury-hover;
+}
+
+.luxury-input {
+  @apply border-border/50 rounded-md focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary;
+}
+
+.luxury-button {
+  @apply bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-md hover:shadow-lg rounded-md transition-all duration-300 transform hover:-translate-y-0.5;
+}
+
+.luxury-button-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 border border-primary rounded-md transition-all duration-300;
+}
+
+.luxury-button-outline {
+  @apply border-2 border-primary/20 text-primary shadow-sm hover:shadow-md rounded-md transition-all duration-300 transform hover:-translate-y-0.5 hover:border-primary/40;
+}
+
+.luxury-badge {
+  @apply bg-accent text-accent-foreground rounded-full px-2.5 py-0.5 text-xs font-medium;
+}
+
+.luxury-divider {
+  @apply border-t border-border/50 my-6;
+}
+
+.luxury-section {
+  @apply py-16 md:py-24;
+}
+
+.luxury-container {
+  @apply container mx-auto px-4 md:px-6;
+}
+
+.luxury-heading {
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold text-primary;
+}
+
+.luxury-subheading {
+  @apply text-xl md:text-2xl font-medium text-primary/80;
+}
+
+.luxury-text {
+  @apply text-foreground/80 leading-relaxed;
+}
+
+.luxury-link {
+  @apply text-primary hover:text-primary/80 transition-colors duration-200;
+}
+
+.teal-accent {
+  @apply text-primary font-medium;
+}
+
+.teal-bg {
+  @apply bg-primary text-primary-foreground;
+}
+
+.white-bg {
+  @apply bg-secondary text-secondary-foreground;
+}
+
+/* Tutor profile page styling */
+.tutor-profile-hero {
+  background: linear-gradient(135deg, hsl(var(--primary)/0.1) 0%, hsl(var(--secondary)/0.1) 100%);
+}
+
+.tutor-profile-card {
+  @apply border-primary/10 shadow-md hover:shadow-lg transition-all duration-300;
+}
+
+.tutor-profile-badge {
+  @apply bg-primary/5 text-primary border-primary/20 px-3 py-1 rounded-full;
+}
+
+.tutor-profile-tab {
+  @apply text-sm md:text-base font-medium;
+}
+
+.tutor-profile-section-title {
+  @apply text-2xl font-bold text-primary mb-4;
+}
+
+.tutor-profile-rating-star {
+  @apply h-4 w-4 fill-yellow-400 text-yellow-400;
+}
+
+.tutor-profile-rating-star-empty {
+  @apply h-4 w-4 text-gray-300;
+}
