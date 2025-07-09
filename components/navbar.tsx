@@ -36,7 +36,7 @@ export default function Navbar() {
   const routes = [
     { href: "/", label: "Home" },
     { href: "/tutors", label: "Find Tutors" },
-    { href: "/how-it-works", label: "How It Works" },
+    { href: "/howitworks", label: "How It Works" },
   ]
 
   return (
