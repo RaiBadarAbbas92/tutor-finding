@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Search, Calendar, MessageSquare, GraduationCap } from "lucide-react"
 
-export function HowItWorks() {
+function HowItWorks() {
   const steps = [
     {
       icon: Search,
@@ -75,3 +75,5 @@ export function HowItWorks() {
     </section>
   )
 }
+
+export default HowItWorks;
