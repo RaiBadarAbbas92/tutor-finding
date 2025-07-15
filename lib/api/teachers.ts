@@ -81,46 +81,8 @@ export interface TeacherCountResponse {
  * Get current teacher profile
  */
 export const getCurrentTeacherProfile = async (): Promise<TeacherProfile> => {
-  try {
-    const response = await api.get<TeacherProfile>('/api/teachers/teachers/profile');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching teacher profile:', error);
-    // Return mock data for development
-    return {
-      id: 1,
-      user_id: 1,
-      username: "Dr. Sarah Johnson",
-      profile_picture: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-      short_description: "Experienced mathematics tutor with 10+ years of teaching experience",
-      long_description: "I specialize in helping students understand complex mathematical concepts through clear explanations and practical examples.",
-      years_of_experience: 10,
-      education: "PhD in Mathematics, Stanford University",
-      certifications: "Certified Math Teacher",
-      teaching_philosophy: "I believe every student can succeed in mathematics with the right guidance and practice.",
-      average_rating: 4.9,
-      total_reviews: 124,
-      subjects: [
-        {
-          id: 1,
-          teacher_id: 1,
-          name: "Mathematics",
-          description: "Algebra, Calculus, Geometry",
-          hourly_rate: 50
-        },
-        {
-          id: 2,
-          teacher_id: 1,
-          name: "Physics",
-          description: "Mechanics, Thermodynamics, Electromagnetism",
-          hourly_rate: 60
-        }
-      ],
-      reviews: [],
-      teaching_experience: ["High School Math Teacher", "University Lecturer"],
-      availability: ["Monday", "Wednesday", "Friday"]
-    };
-  }
+  const response = await api.get<TeacherProfile>('/api/teachers/teachers/profile');
+  return response.data;
 };
 
 /**
@@ -301,76 +263,6 @@ export const getTeacherCount = async (
  * Get a specific teacher
  */
 export const getTeacherById = async (teacherId: number): Promise<TeacherProfile> => {
-  try {
-    const response = await api.get<TeacherProfile>(`/api/teachers/teachers/${teacherId}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching teacher by ID:', error);
-    // Return mock data for development
-    const mockTeachers = [
-      {
-        id: 1,
-        user_id: 1,
-        username: "Dr. Sarah Johnson",
-        profile_picture: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-        short_description: "Experienced mathematics tutor with 10+ years of teaching experience",
-        long_description: "I specialize in helping students understand complex mathematical concepts through clear explanations and practical examples.",
-        years_of_experience: 10,
-        education: "PhD in Mathematics, Stanford University",
-        certifications: "Certified Math Teacher",
-        teaching_philosophy: "I believe every student can succeed in mathematics with the right guidance and practice.",
-        average_rating: 4.9,
-        total_reviews: 124,
-        subjects: [
-          {
-            id: 1,
-            teacher_id: 1,
-            name: "Mathematics",
-            description: "Algebra, Calculus, Geometry",
-            hourly_rate: 50
-          },
-          {
-            id: 2,
-            teacher_id: 1,
-            name: "Physics",
-            description: "Mechanics, Thermodynamics, Electromagnetism",
-            hourly_rate: 60
-          }
-        ],
-        reviews: [],
-        teaching_experience: ["High School Math Teacher", "University Lecturer"],
-        availability: ["Monday", "Wednesday", "Friday"]
-      },
-      {
-        id: 2,
-        user_id: 2,
-        username: "Prof. Michael Chen",
-        profile_picture: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-        short_description: "Expert physics tutor with research background",
-        long_description: "I combine theoretical knowledge with practical applications to make physics engaging and understandable.",
-        years_of_experience: 8,
-        education: "PhD in Physics, MIT",
-        certifications: "Physics Teaching Certification",
-        teaching_philosophy: "Physics should be learned through experimentation and real-world applications.",
-        average_rating: 4.8,
-        total_reviews: 89,
-        subjects: [
-          {
-            id: 3,
-            teacher_id: 2,
-            name: "Physics",
-            description: "Mechanics, Quantum Physics, Relativity",
-            hourly_rate: 65
-          }
-        ],
-        reviews: [],
-        teaching_experience: ["Research Scientist", "Physics Professor"],
-        availability: ["Tuesday", "Thursday", "Saturday"]
-      }
-    ];
-    
-    // Return the teacher with the matching ID, or the first one if not found
-    const teacher = mockTeachers.find(t => t.id === teacherId) || mockTeachers[0];
-    return teacher;
-  }
+  const response = await api.get<TeacherProfile>(`/api/teachers/teachers/${teacherId}`);
+  return response.data;
 };

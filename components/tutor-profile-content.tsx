@@ -20,6 +20,15 @@ export function TutorProfileContent({ tutorId }: TutorProfileContentProps) {
   const [tutor, setTutor] = useState<TeacherProfile | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [localUsername, setLocalUsername] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Try to get username from localStorage if not provided by backend
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem(`tutor_username_${tutorId}`)
+      if (stored) setLocalUsername(stored)
+    }
+  }, [tutorId])
 
   useEffect(() => {
     const fetchTutor = async () => {
@@ -54,7 +63,7 @@ export function TutorProfileContent({ tutorId }: TutorProfileContentProps) {
   }
 
   // Format the tutor name or use a placeholder
-  const tutorName = tutor.username || (tutor.user_id ? `Tutor ${tutor.user_id}` : "Experienced Tutor")
+  const tutorName = tutor.username || localUsername || (tutor?.user_id ? `Tutor ${tutor.user_id}` : "Experienced Tutor")
 
   return (
     <div className="bg-gradient-to-b from-primary/10 to-transparent">

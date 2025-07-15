@@ -207,83 +207,88 @@ export function TutorList({ searchFilters = {} }: TutorListProps) {
         </div>
       ) : (
         <div className="space-y-4">
-          {filteredTutors.map((tutor) => (
-          <Card key={tutor.id} className="overflow-hidden">
-            <CardContent className="p-0">
-              <div className="flex flex-col md:flex-row">
-                <div className="relative w-full md:w-48 h-48 md:h-auto bg-muted shrink-0">
-                  <img
-                    src={tutor.profile_picture || "/placeholder.svg"}
-                    alt={tutor.username ||
-                         (tutor.user_id && userMap[tutor.user_id]?.username) ||
-                         `Teacher ${tutor.id}`}
-                    className="object-cover w-full h-full"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-2 right-2 h-8 w-8 rounded-full bg-background/80 text-muted-foreground hover:text-primary"
-                  >
-                    <Heart className="h-4 w-4" />
-                  </Button>
-                </div>
-                <div className="p-6 flex-1">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-bold">
-                        {/* Display real username with fallbacks */}
-                        {tutor.username ||
-                         (tutor.user_id && userMap[tutor.user_id]?.username) ||
-                         `Teacher ${tutor.id}`}
-                      </h3>
-                      <div className="flex items-center">
-                        <StarRating rating={tutor.average_rating || 0} />
-                        <span className="ml-1 text-sm">({tutor.total_reviews || 0})</span>
+          {filteredTutors.map((tutor) => {
+            // Determine the username or fallback
+            const displayUsername = tutor.username || (tutor.user_id && userMap[tutor.user_id]?.username) || `Teacher ${tutor.id}`;
+            return (
+              <Card key={tutor.id} className="overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="flex flex-col md:flex-row">
+                    <div className="relative w-full md:w-48 h-48 md:h-auto bg-muted shrink-0">
+                      <img
+                        src={tutor.profile_picture || "/placeholder.svg"}
+                        alt={tutor.username ||
+                             (tutor.user_id && userMap[tutor.user_id]?.username) ||
+                             `Teacher ${tutor.id}`}
+                        className="object-cover w-full h-full"
+                      />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute top-2 right-2 h-8 w-8 rounded-full bg-background/80 text-muted-foreground hover:text-primary"
+                      >
+                        <Heart className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <div className="p-6 flex-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-bold">
+                            {displayUsername}
+                          </h3>
+                          <div className="flex items-center">
+                            <StarRating rating={tutor.average_rating || 0} />
+                            <span className="ml-1 text-sm">({tutor.total_reviews || 0})</span>
+                          </div>
+                        </div>
+                        <span className="font-medium">
+                          ${tutor.subjects && tutor.subjects[0] ? tutor.subjects[0].hourly_rate : 0}/hour
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-2">{tutor.short_description || "Tutor"}</p>
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {tutor.subjects && tutor.subjects.slice(0, 5).map((subject) => (
+                          <Badge key={subject.id} variant="secondary" className="text-xs">
+                            {subject.name}
+                          </Badge>
+                        ))}
+                        {tutor.subjects && tutor.subjects.length > 5 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{tutor.subjects.length - 5} more
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-sm mb-4 line-clamp-2">{tutor.long_description || tutor.short_description || "No description available"}</p>
+                      <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
+                        <span>{tutor.years_of_experience || 0} years experience</span>
+                        <span>
+                          {Array.isArray(tutor.education)
+                            ? tutor.education.length > 0
+                              ? `${tutor.education[0].degree} in ${tutor.education[0].field}`
+                              : "Education not specified"
+                            : typeof tutor.education === 'string'
+                              ? tutor.education
+                              : "Education not specified"}
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <Button asChild onClick={() => {
+                          if (typeof window !== 'undefined') {
+                            localStorage.setItem(`tutor_username_${tutor.id}`, displayUsername);
+                          }
+                        }}>
+                          <Link href={`/tutors/${tutor.id}`}>View Profile</Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                          <Link href={`/book-meeting/${tutor.id}`}>Book Session</Link>
+                        </Button>
                       </div>
                     </div>
-                    <span className="font-medium">
-                      ${tutor.subjects && tutor.subjects[0] ? tutor.subjects[0].hourly_rate : 0}/hour
-                    </span>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-2">{tutor.short_description || "Tutor"}</p>
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {tutor.subjects && tutor.subjects.slice(0, 5).map((subject) => (
-                      <Badge key={subject.id} variant="secondary" className="text-xs">
-                        {subject.name}
-                      </Badge>
-                    ))}
-                    {tutor.subjects && tutor.subjects.length > 5 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{tutor.subjects.length - 5} more
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="text-sm mb-4 line-clamp-2">{tutor.long_description || tutor.short_description || "No description available"}</p>
-                  <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                    <span>{tutor.years_of_experience || 0} years experience</span>
-                    <span>
-                      {Array.isArray(tutor.education)
-                        ? tutor.education.length > 0
-                          ? `${tutor.education[0].degree} in ${tutor.education[0].field}`
-                          : "Education not specified"
-                        : typeof tutor.education === 'string'
-                          ? tutor.education
-                          : "Education not specified"}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Button asChild>
-                      <Link href={`/tutors/${tutor.id}`}>View Profile</Link>
-                    </Button>
-                    <Button asChild variant="outline">
-                      <Link href={`/book-meeting/${tutor.id}`}>Book Session</Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       )}
     </div>
