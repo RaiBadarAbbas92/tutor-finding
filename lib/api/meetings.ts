@@ -104,7 +104,7 @@ export const getTeacherMeetings = async (
     to_date?: string;
   }
 ): Promise<Meeting[]> => {
-  const response = await api.get<Meeting[]>('/api/teachers/me/meetings', { params });
+  const response = await api.get<Meeting[]>('/api/meetings/teachers/me/meetings', { params });
   return response.data;
 };
 
