@@ -141,6 +141,10 @@ export default function DashboardPage() {
                       </div>
                     </CardContent>
                   </Card>
+                  {/* Chat Now Card for Teacher Dashboard */}
+                  <div className="col-span-1">
+                    <DashboardChatPreview />
+                  </div>
                 </div>
 
                 {/* Teacher Profile Details Section */}
